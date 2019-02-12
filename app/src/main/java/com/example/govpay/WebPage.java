@@ -1,6 +1,8 @@
 package com.example.govpay;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -31,14 +33,20 @@ public class WebPage extends AppCompatActivity {
         Intent intent = getIntent();
         Long amount = Long.parseLong(intent.getStringExtra("AMOUNT"));
         System.out.println(amount);
+
+        // Create payment object
         Payment payment = new Payment(amount);
+        // Converts payment to JSON
         Gson gson = new Gson();
         String json = gson.toJson(payment);
         json_object = json;
         // String payment_id = Payment.payment_id; // To prevent garbage collection
         // System.out.println(payment_id);
+        SharedPreferences sharedPref = WebPage.this.getPreferences(Context.MODE_PRIVATE);
+        int value = sharedPref.getInt("test", 10);
+        System.out.println(value);
         super.onCreate(savedInstanceState);
-        apiCall();
+        // apiCall();
     }
 
     public void apiCall() {
@@ -54,15 +62,13 @@ public class WebPage extends AppCompatActivity {
                         try {
                             JSONObject item = new JSONObject(response);
                             String url = item.getJSONObject("_links").getJSONObject("next_url").getString("href");
-                            System.out.println(url);
+                            String payment_id = item.getString("payment_id");
+                            store_payment_id(payment_id);
                             setUpWeb(url);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
-
-
                     }
                 }, new Response.ErrorListener() {
 
@@ -104,5 +110,13 @@ public class WebPage extends AppCompatActivity {
         myWebView.setWebViewClient(new WebViewClient());
         setContentView(myWebView);
         myWebView.loadUrl(url);
+    }
+
+    public void store_payment_id(String payment_id) {
+        SharedPreferences sharedPref = WebPage.this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("payment_id", payment_id);
+        editor.commit();
+        System.out.println("Stored Payment ID");
     }
 }
