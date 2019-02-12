@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.govpay">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,8 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WebPage"
-            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".DisplayPayment"></activity>
+        <activity
+            android:name=".WebPage"
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
