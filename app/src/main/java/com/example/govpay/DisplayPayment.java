@@ -1,9 +1,12 @@
 package com.example.govpay;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -88,6 +91,32 @@ public class DisplayPayment extends AppCompatActivity {
         queue.add(stringRequest);
     }
     public void setUpViews(Payment payment, CardDetails card_details) {
+        TextView payment_view = findViewById(R.id.payment);
+        TextView card_details_view = findViewById(R.id.card_details);
+        TextView billing_address_view = findViewById(R.id.billing_address);
+        payment_view.append("Amount: " + payment.getAmount() + "\n");
+        payment_view.append("Status: " + payment.getStatus() + "\n");
+        payment_view.append("Reference: " + payment.getReference() + "\n");
+        payment_view.append("Description: " + payment.getDescription() + "\n");
 
+        card_details_view.setText("Card Details: " + "\n");
+        card_details_view.append("Card Type: " + card_details.getCard_brand() + "\n");
+        card_details_view.append("First Digits of Card: " + card_details.getFirst_digits_card_number() + "\n");
+        card_details_view.append("Last Digits of Card: " + card_details.getLast_digits_card_number() + "\n");
+        card_details_view.append("Expiry Date: " + card_details.getExpiry_date() + "\n");
+        card_details_view.append("Name: " + card_details.getCardholder_name() + "\n");
+        card_details_view.append("Email: " + payment.getEmail() + "\n");
+
+        billing_address_view.setText("Billing Address: \n");
+        billing_address_view.append("Line 1: " + card_details.billing_address.getLine1() + "\n");
+        billing_address_view.append("Line 2: " + card_details.billing_address.getLine2() + "\n");
+        billing_address_view.append("City: " + card_details.billing_address.getCity() + "\n");
+        billing_address_view.append("Country: " + card_details.billing_address.getCountry() + "\n");
+        billing_address_view.append("Post code: " + card_details.billing_address.getPostcode());
+    }
+
+    public void payAgain(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
