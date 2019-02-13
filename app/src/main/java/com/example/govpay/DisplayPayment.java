@@ -26,11 +26,9 @@ public class DisplayPayment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_payment);
 
-        SharedPreferences sharedPref = DisplayPayment.this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("PAYMENT_DATA", MODE_PRIVATE);
         String payment_id = sharedPref.getString("payment_id", "no payment id");
-        System.out.println(payment_id);
         apiCall(payment_id);
-
     }
 
     public void apiCall(String payment_id) {
@@ -50,10 +48,9 @@ public class DisplayPayment extends AppCompatActivity {
                             String url = item.getJSONObject("_links").getJSONObject("next_url").getString("href");
                             String payment_id = item.getString("payment_id");
                             System.out.println(payment_id);
-                            setUpViews();
 
                             */
-
+                            setUpViews();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -63,7 +60,6 @@ public class DisplayPayment extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 System.out.println("That didn't work");
-                // setUpWeb();
             }
         }) {
             @Override
@@ -71,10 +67,9 @@ public class DisplayPayment extends AppCompatActivity {
                 Map<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
                 headers.put("accept", "application/json");
-                headers.put("Authorization", "");
+                headers.put("Authorization", BuildConfig.ApiKey);
                 return headers;
             }
-
         };
         queue.add(stringRequest);
     }

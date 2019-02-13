@@ -3,9 +3,9 @@ package com.example.govpay;
 public class Payment {
 
     long amount;
-    String reference = "12345";
+    String reference = "12342";
     String description = "Government Donations";
-    String return_url = "http://www.google.com/";
+    String return_url = "https://glacial-woodland-68589.herokuapp.com/confirmation";
 
     public Payment(long amount) {
         this.amount = amount;

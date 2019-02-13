@@ -12,7 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DisplayPayment"></activity>
+        <activity android:name=".DisplayPayment">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="myapp"
+                    android:host="display_payment" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".WebPage"
             android:parentActivityName=".MainActivity" />
