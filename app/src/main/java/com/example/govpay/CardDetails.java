@@ -55,4 +55,13 @@ public class CardDetails {
     public void setCard_brand(String card_brand) {
         this.card_brand = card_brand;
     }
+
+    public CardDetails(String last_digits_card_number, String first_digits_card_number, String cardholder_name, String expiry_date, Billing_address billing_address, String card_brand) {
+        this.last_digits_card_number = last_digits_card_number;
+        this.first_digits_card_number = first_digits_card_number;
+        this.cardholder_name = cardholder_name;
+        this.expiry_date = expiry_date;
+        this.billing_address = billing_address;
+        this.card_brand = card_brand;
+    }
 }

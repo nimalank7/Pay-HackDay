@@ -46,4 +46,12 @@ public class Billing_address {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public Billing_address(String line1, String line2, String postcode, String city, String country) {
+        this.line1 = line1;
+        this.line2 = line2;
+        this.postcode = postcode;
+        this.city = city;
+        this.country = country;
+    }
 }
